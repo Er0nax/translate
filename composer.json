@@ -1,0 +1,39 @@
+{
+  "name": "eronax/translate",
+  "description": "A simple translation plugin for craft cms 5+",
+  "type": "craft-plugin",
+  "license": "mit",
+  "support": {
+    "email": "zapfetim@gmail.com",
+    "issues": "https://github.com/er0nax/translate.git/issues?state=open",
+    "source": "https://github.com/er0nax/translate.git",
+    "docs": "https://github.com/er0nax/translate.git",
+    "rss": "https://github.com/er0nax/translate.git/releases.atom"
+  },
+  "require": {
+    "php": ">=8.2",
+    "craftcms/cms": "^5.6.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "eronax\\translate\\": "src/"
+    }
+  },
+  "extra": {
+    "handle": "translate",
+    "name": "Translate",
+    "developer": "Eronax",
+    "documentationUrl": "https://github.com/er0nax/translate.git",
+    "class": "eronax\\translate\\Translate"
+  },
+  "config": {
+    "sort-packages": true,
+    "platform": {
+      "php": "8.2"
+    },
+    "allow-plugins": {
+      "yiisoft/yii2-composer": true,
+      "craftcms/plugin-installer": true
+    }
+  }
+}
