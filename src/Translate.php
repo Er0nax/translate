@@ -4,6 +4,8 @@ namespace eronax\translate;
 
 use Craft;
 use craft\base\Plugin;
+use eronax\translate\services\TranslatorService;
+use Twig\TwigFilter;
 
 /**
  * Translate plugin
@@ -21,27 +23,23 @@ class Translate extends Plugin
     {
         return [
             'components' => [
-                // Define component configs here...
+                'translator' => TranslatorService::class,
             ],
         ];
+
     }
 
     public function init(): void
     {
-        parent::init();
-
-        $this->attachEventHandlers();
-
-        // Any code that creates an element query or loads Twig should be deferred until
-        // after Craft is fully initialized, to avoid conflicts with other plugins/modules
-        Craft::$app->onInit(function() {
-            // ...
+        Craft::$app->view->registerTwigExtension(new class extends \Twig\Extension\AbstractExtension {
+            public function getFilters(): array
+            {
+                return [
+                    new TwigFilter('t', function ($value, $category = 'app', $variables = []) {
+                        return Translate::getInstance()->translator->translate($value, $category, $variables);
+                    }),
+                ];
+            }
         });
-    }
-
-    private function attachEventHandlers(): void
-    {
-        // Register event handlers here ...
-        // (see https://craftcms.com/docs/5.x/extend/events.html to get started)
     }
 }
